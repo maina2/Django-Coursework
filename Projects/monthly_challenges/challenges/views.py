@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound,HttpResponseRedirect
 from django.urls import reverse
+from django.template.loader import render_to_string
 
 # Create your views here.
 monthly_challenges_list = {
@@ -19,15 +20,11 @@ monthly_challenges_list = {
 }
 
 def index (request):
-    list_items =""
     month_key = list(monthly_challenges_list.keys())
-    for month in month_key:
-        capitalized_month = month.capitalize()
-        month_path = reverse("month-challenge", args=[month])
-        list_items+= f"<li><a href= \"{month_path}\">{capitalized_month}<a/> "
-
-        response_data = f"<ul>{list_items}</ul>"
-    return HttpResponse(response_data)
+  
+    return render(request, "challenges/index.html",{
+        "months":month_key
+    })
 
 def monthly_challenges_int(request,month):
     month_key = list(monthly_challenges_list.keys())
@@ -38,11 +35,15 @@ def monthly_challenges_int(request,month):
 
 
 def monthly_challenges(request,month):
-    
-    for the_month in monthly_challenges_list:
-        if the_month == month :
-            return HttpResponse(monthly_challenges_list.get(month))
-    else:
-        return HttpResponseNotFound("404 error")
+    try:
+        challenge_text = monthly_challenges_list[month]
+        return render(request,"challenges/challenge.html" , {
+                "text": challenge_text,
+                "month_name":month
+            })
+    except:
+        return HttpResponseNotFound("Error 404")
+
+
 
    
