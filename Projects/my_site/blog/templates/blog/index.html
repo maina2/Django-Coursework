@@ -1,0 +1,39 @@
+{% extends "base.html" %} 
+{% block title %} My Blog {% endblock title %} 
+{% block content %}
+<header id="main-navigation">
+  <h1><a href="">SMC blog</a></h1>
+  <nav>
+    <a href="">All posts</a>
+  </nav>
+</header>
+
+<section id="welcome">
+  <header>
+    <img src="" alt="This is an alt for the image" />
+    <h2>This is my blog</h2>
+    <p>Hi, I am a human who loves tech</p>
+  </header>
+</section>
+<section id="latest-posts">
+  <h2>My latest thoughts</h2>
+  <ul>
+    <li>
+        <article class="post">
+            <a href="">
+                <img src="" alt="This is a mountain">
+                <div class="post__content">
+                    <h3>Mountain hiking</h3>
+                    <p>The hiking was great</p>
+                </div>
+            </a>
+        </article>
+    </li>
+  </ul>
+</section>
+<section id="about">
+    <h3>What I do</h3>
+    <p>I love watching tutorials</p>
+</section>
+
+{% endblock content %}

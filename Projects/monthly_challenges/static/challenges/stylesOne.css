@@ -1,0 +1,23 @@
+ul{
+    list-style: none;
+    width: 40%;
+    height: 60%;
+    box-shadow: 9px 7px 9px -1px rgba(0,0,0,0.71);
+    background-color: white;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+li{
+    border: 1px solid yellow;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+a{
+    text-decoration: none;
+    color: rgb(255, 89, 0);
+    font-size: 22px;
+}
