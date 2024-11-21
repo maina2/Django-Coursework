@@ -1,0 +1,28 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0px;
+}
+
+
+
+#main-navigation {
+    background: #0073e6;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+  }
+  
+  #main-navigation h1 a {
+    font-size: 2rem;
+    color: white;
+  }
+  
+  #main-navigation nav {
+    margin-top: 1rem;
+  }
+  
+  #main-navigation nav a {
+    margin: 0 0.5rem;
+    font-weight: bold;
+  }
