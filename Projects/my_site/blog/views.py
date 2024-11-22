@@ -4,7 +4,7 @@ from django.shortcuts import render
 all_posts = [
     {
         "slug": "mountain-hiking",
-        "image": "pic4.jpg",
+        "image": "picture4.jpg",
         "author": "John Doe",
         "date": "2024-11-21",
         "title": "Mountain Hiking Adventures",
@@ -13,7 +13,7 @@ all_posts = [
     },
     {
         "slug": "city-night-life",
-        "image": "pic2.jpg",
+        "image": "picture6.jpg",
         "author": "Jane Smith",
         "date": "2024-11-20",
         "title": "Exploring City Nightlife",
@@ -22,7 +22,7 @@ all_posts = [
     },
     {
         "slug": "beach-getaway",
-        "image": "pic3.jpg",
+        "image": "picture3.jpg",
         "author": "Alice Johnson",
         "date": "2024-11-19",
         "title": "A Perfect Beach Getaway",
@@ -31,7 +31,7 @@ all_posts = [
     },
     {
         "slug": "tech-trends-2024",
-        "image": "pic1.jpg",
+        "image": "picture1.jpg",
         "author": "Mark Brown",
         "date": "2024-11-18",
         "title": "Top Tech Trends for 2024",
@@ -40,10 +40,19 @@ all_posts = [
     },
     {
         "slug": "culinary-delights",
-        "image": "images/food.jpg",
+        "image": "picture5.jpg",
         "author": "Emily Davis",
         "date": "2024-11-17",
         "title": "Exploring Culinary Delights",
+        "excerpt": "Embark on a journey through the world's most delicious cuisines.",
+        "content": "Food is not just sustenance; it's an art form. From traditional dishes to modern fusion creations, exploring new cuisines can be an adventure for your taste buds."
+    },
+    {
+        "slug": "Night-travels",
+        "image": "picture7.jpg",
+        "author": "Emily Davis",
+        "date": "2024-10-17",
+        "title": "Night travellings",
         "excerpt": "Embark on a journey through the world's most delicious cuisines.",
         "content": "Food is not just sustenance; it's an art form. From traditional dishes to modern fusion creations, exploring new cuisines can be an adventure for your taste buds."
     }
@@ -51,7 +60,7 @@ all_posts = [
 
 def get_date(posts):
     return posts['date']
-# Create your views here.
+
 
 
 def starting_page(request):
@@ -62,7 +71,21 @@ def starting_page(request):
     })
 
 def posts(request):
-    return render(request,"blog/all-posts.html")
 
-def post_detail():
-    pass
+
+    return render(request,"blog/all-posts.html",{
+        "whole_list" : all_posts
+    })
+
+
+def post_detail(request, slug):
+    # Assuming all_posts is a list of dictionaries with a "slug" key
+    for details in all_posts:
+        if details['slug'] == slug:  # Check if the slug matches
+            return render(request, "blog/post-detail.html", {
+                "post": details
+            })
+
+    # If no matching post is found, return a 404 page
+    return render(request, "404.html", {"message": "Page not found"})
+

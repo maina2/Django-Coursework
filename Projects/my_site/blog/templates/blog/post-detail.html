@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'blog/post-detail.css'%}">
+{% endblock css_files %}
+
+
+{% block title %}
+Post detail
+{% endblock title %}
+
+
+{% block content %}
+<article class="post">
+    
+        <img src="{% static 'blog/images/'|add:post.image %}" alt="This is a mountain">
+        <div class="post__content">
+            <h3>{{post.title}}</h3>
+            <p>{{post.content}}</p>
+        </div>
+    
+</article>
+{% endblock content %}
