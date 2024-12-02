@@ -13,9 +13,14 @@
 <body>
     <form action="/" method="POST">
         {% csrf_token %}
+        
+        {% for field in form %}
+        {{field.label_tag}}
+        {{field}}
+        {{ field.as_p }}
+        {% endfor %}
+            
 
-        {{form}}
-        {{ form.as_p }}
         <button type="submit">Send</button>
     </form>
     
