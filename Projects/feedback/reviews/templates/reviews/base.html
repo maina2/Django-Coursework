@@ -6,12 +6,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}
+    <title>
+    {% block title %}
         
     {% endblock title %}</title>
+    {% block css_files %}
+    <link rel="stylesheet" href="{% static 'reviews/styles.css'%}">
+        
+    {% endblock css_files %}
 </head>
 
-<link rel="stylesheet" href="{% static 'reviews/styles.css'%}">
+
 <body>
     {% block content %}
         

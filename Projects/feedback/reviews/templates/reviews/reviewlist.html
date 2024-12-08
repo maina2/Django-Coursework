@@ -1,15 +1,25 @@
 {% extends "reviews/base.html" %}
-
+{%  load static  %}
 {% block title %}
+All Reviews
 {% endblock title %}
 
-{% block content %}
-    <ul>
-        
-        {% for review in object_list %}
-            <li>{{review.user_name}} (Rating: {{review.rating}})</li>
-        {% endfor %}
-            
-    </ul>
-{% endblock content %}
 
+{% block css_files %}
+<link rel="stylesheet" href="{% static 'reviews/reviewsStyles.css' %}">
+
+{% endblock css_files %}
+
+{% block content %}
+<div class="reviews-container">
+    <h1 class="page-title">All Reviews</h1>
+    <ul class="review-list">
+        {% for review in object_list %}
+            <li class="review-item">
+                <span class="review-user">{{ review.user_name }}</span>
+                <span class="review-rating">Rating: {{ review.rating }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

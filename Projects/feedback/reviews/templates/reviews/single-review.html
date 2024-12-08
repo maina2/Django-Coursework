@@ -1,14 +1,23 @@
 {% extends "reviews/base.html" %}
-
+{% load static  %}
 {% block title %}
-
+Review Details
 {% endblock title %}
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'reviews/singleReview.css'%}">
+{% endblock css_files %}
 
 {% block content %}
-<h2>{{review.user_name}}</h2>
-{{review.review_text}}
-{{review.rating}}
-
+<div class="review-detail-container">
+    <h1 class="review-title">{{ review.user_name }}</h1>
+    <p class="review-text">{{ review.review_text }}</p>
+    <p class="review-rating">
+        <strong>Rating:</strong> {{ review.rating }}
+    </p>
+    <form class="favorite-form" action="/reviews/favorite" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="review_id" value="{{ review.id }}">
+        <button class="favorite-button" type="submit">Mark as Favorite</button>
+    </form>
+</div>
 {% endblock content %}
-
-
