@@ -3,9 +3,15 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect
 from .forms import ProfileForm
 from .models import UserProfile
+from django.views.generic import ListView
 # Create your views here.
 
 
+
+class UserProfileListView(ListView):
+    model = UserProfile
+    template_name = "profiles/user_profile.html"
+    context_object_name = 'profiles' 
 
 class CreateProfileView(View):
     def get(self, request):
