@@ -1,41 +1,10 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Post
-from django.views.generic import TemplateView,ListView,DetailView
-
-
-
-
-# def get_date(posts):
-#     return posts['date']
-
-
-# def starting_page(request):
-    
-#     latest_posts = Post.objects.all().order_by("-date")[:3]
-#     return render(request,"blog/index.html",{
-#         "posts_list" : latest_posts
-#     })
-
-
-
-
-# def posts(request):
-#     all_posts = Post.objects.all()
-#     return render(request,"blog/all-posts.html",{
-#         "whole_list" : all_posts
-#     })
-
-
-# def post_detail(request, slug):
-#     identified_post = get_object_or_404(Post,slug=slug)
-
-#     return render(request, "blog/post-detail.html",{
-#         "post": identified_post
-#     })
-
-# class StartingPageView(TemplateView):
-#     template_name = "blog/index.html"
-#     con
+from django.views.generic import ListView
+from django.views import View
+from .forms import CommentModelForm
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 class StartingPageListView(ListView):
@@ -53,7 +22,32 @@ class PostListView(ListView):
     context_object_name = "whole_list"
 
 
-class PostDetailView(DetailView):
-    model = Post
-    template_name = "blog/post-detail.html"
-    context_object_name= "post"
+class PostDetailView(View):
+
+    def get(self,request,slug):
+        post = Post.objects.get(slug=slug)
+
+        return render(request,"blog/post-detail.html",{
+            "post": post,
+            "comment_form":CommentModelForm(),
+            "comments":post.comments.all().order_by("-id")
+        })
+
+    
+    def post(self,request,slug):
+        comment_form = CommentModelForm(request.POST)
+        post = Post.objects.get(slug=slug)
+        if comment_form.is_valid():
+            comment=comment_form.save(commit=False)
+            comment.post = post
+            comment.save()
+            return HttpResponseRedirect(reverse("post-detail-page",args=[slug]))
+
+        return render(request,"blog/post-detail.html",{
+            "post": post,
+            "comment_form":comment_form,
+            "comments":post.comments.all().order_by("-id")
+        })
+
+   
+    

@@ -25,6 +25,31 @@ Post detail
             <h5>{{post.author}}</h5>
             <p>{{post.date}}</p>
         </div>
-    
+        
 </article>
+<div class="comments-list">
+    
+<ul>
+    {% for comment in comments  %}
+        <li>
+            <h2>{{comment.user_name}}</h2>
+            {{comment.text}}
+        </li>
+    {% endfor %}
+</ul>
+        
+</div>
+<div class="comment-form">
+    <form action="{% url 'post-detail-page' post.slug %}" method="POST">
+        {% csrf_token %}
+        
+        {% for form_field in comment_form %}
+        {{form_field.label}}
+        {{form_field}}
+        {{form_field.error}}
+        {% endfor %}
+        <button>Save Comment</button>
+    </form>
+    
+</div>
 {% endblock content %}
